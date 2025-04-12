@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Time Pokémon Aleatório</title>
+  <title>SquadMaker</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Exo+2&family=VT323&display=swap" rel="stylesheet">
-
 
   <style>
     body {
@@ -62,6 +61,89 @@
     .pokemon-title {
       font-family: 'VT323', cursive;
     }
+    
+    /* Estilo para o dropdown de gerações */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-btn {
+      background-color: #2c3e50;
+      color: #ecf0f1;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 200px;
+    }
+    
+    .dropdown-btn:after {
+      content: "▼";
+      font-size: 12px;
+      margin-left: 8px;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #2c3e50;
+      min-width: 200px;
+      border-radius: 10px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      padding: 10px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .dropdown-content.show {
+      display: block;
+    }
+    
+    .dropdown-item {
+      padding: 8px 12px;
+      display: block;
+      color: #ecf0f1;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+    
+    .dropdown-item:hover {
+      background-color: #3a4e63;
+      border-radius: 5px;
+    }
+    
+    .dropdown-item label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      width: 100%;
+    }
+    
+    .dropdown-item input {
+      margin-right: 8px;
+    }
+    
+    @media (max-width: 768px) {
+      .search-filters {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .pokemon-title {
+        font-size: 3rem !important;
+      }
+      
+      .dropdown-btn {
+        width: 250px;
+      }
+    }
   </style>
 </head>
 <body class="min-h-screen">
@@ -69,27 +151,25 @@
   <!-- Navbar -->
   <nav class="bg-gray-900/90 shadow-md sticky top-0 z-50 backdrop-blur">
     <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-xl md:text-5xl text-purple-400 drop-shadow-sm pokemon-title">SquadMaker</h1>
+      <h1 class="text-4xl sm:text-3xl md:text-6xl text-purple-400 drop-shadow-sm pokemon-title">SquadMaker</h1>
     </div>
   </nav>
 
   <!-- Header -->
   <header class="text-center py-12 px-4">
-    <h2 class="text-4xl md:text-5xl font-extrabold text-indigo-300 mb-4 drop-shadow-sm pokemon-title ">Monte seu Time de Pokémon</h2>
-    <p class="text-lg text-gray-300 max-w-xl mx-auto ">Escolha as gerações, defina a quantidade de integrantes e visualize seus Pokémon com habilidades incríveis.</p>
+    <h2 class="text-4xl md:text-5xl font-extrabold text-indigo-300 mb-4 drop-shadow-sm pokemon-title">Monte seu Time de Pokémon</h2>
+    <p class="text-lg text-gray-300 max-w-xl mx-auto">Escolha as gerações, defina a quantidade de integrantes e visualize seus Pokémon com habilidades incríveis.</p>
   </header>
 
   <!-- Container com Filtros e Time Gerado -->
-  <section class="flex flex-col lg:flex-row lg:items-start justify-between px-4 mb-16 gap-10">
+  <section class="flex flex-col xl:flex-row xl:items-start justify-center px-4 mb-16 gap-10">
     <!-- Filtros -->
-    <div class="lg:sticky lg:top-20 max-w-md bg-white/10 rounded-2xl shadow-lg p-8 md:p-10 border border-indigo-100 fade-in w-full lg:ml-2 flex-shrink-0 h-fit">
-
+    <div class="xl:sticky xl:top-20 max-w-md bg-white/10 rounded-2xl shadow-lg p-8 md:p-10 border border-indigo-100 fade-in w-full mx-auto xl:ml-2 flex-shrink-0 h-fit">
       <h2 class="text-4xl font-extrabold text-indigo-300 mb-8 text-center pokemon-title">Filtros</h2>
-
       <!-- Gerações -->
       <div class="mb-8">
         <label class="block font-semibold mb-3 text-gray-300 text-lg">Gerações:</label>
-        <div class="flex flex-wrap gap-3">
+        <div class="flex flex-wrap gap-3 justify-center">
           <label><input type="checkbox" class="geracao" value="1" checked> Gen 1</label>
           <label><input type="checkbox" class="geracao" value="2" checked> Gen 2</label>
           <label><input type="checkbox" class="geracao" value="3" checked> Gen 3</label>
@@ -98,6 +178,7 @@
           <label><input type="checkbox" class="geracao" value="6" checked> Gen 6</label>
           <label><input type="checkbox" class="geracao" value="7" checked> Gen 7</label>
           <label><input type="checkbox" class="geracao" value="8" checked> Gen 8</label>
+          <label><input type="checkbox" class="geracao" value="9" checked> Gen 9</label>
         </div>
       </div>
 
@@ -117,18 +198,53 @@
     </div>
 
     <!-- Time Gerado -->
-    <section id="time" class="text-center px-4 mb-10 w-full fade-in">
+    <section id="time" class="text-center px-4 mb-10 w-full fade-in xl:max-w-4xl xl:mx-auto">
       <h2 class="text-4xl font-bold text-indigo-300 mb-8 pokemon-title">Seu Time</h2>
       <div id="timeContainer" class="flex flex-wrap justify-center gap-6"></div>
     </section>
-  </section>
+</section>
 
-  <!-- Barra de Pesquisa -->
-  <div class="flex justify-center px-4 mb-16">
+  <!-- Barra de Pesquisa + Filtro Gens -->
+  <div class="search-filters flex flex-col lg:flex-row lg:items-center justify-center px-4 mb-16 gap-6">
     <input type="text" id="searchInput" class="search-bar" placeholder="Buscar Pokémon..." oninput="filtrarPokemon()">
+
+    <div class="dropdown">
+      <button class="dropdown-btn" onclick="toggleDropdown()">
+        Filtrar Gerações
+      </button>
+      <div id="genDropdown" class="dropdown-content">
+        <div class="dropdown-item">
+          <label><input type="checkbox" class="gen-filter" value="1" checked> Geração 1</label>
+        </div>
+        <div class="dropdown-item">
+          <label><input type="checkbox" class="gen-filter" value="2" checked> Geração 2</label>
+        </div>
+        <div class="dropdown-item">
+          <label><input type="checkbox" class="gen-filter" value="3" checked> Geração 3</label>
+        </div>
+        <div class="dropdown-item">
+          <label><input type="checkbox" class="gen-filter" value="4" checked> Geração 4</label>
+        </div>
+        <div class="dropdown-item">
+          <label><input type="checkbox" class="gen-filter" value="5" checked> Geração 5</label>
+        </div>
+        <div class="dropdown-item">
+          <label><input type="checkbox" class="gen-filter" value="6" checked> Geração 6</label>
+        </div>
+        <div class="dropdown-item">
+          <label><input type="checkbox" class="gen-filter" value="7" checked> Geração 7</label>
+        </div>
+        <div class="dropdown-item">
+          <label><input type="checkbox" class="gen-filter" value="8" checked> Geração 8</label>
+        </div>
+        <div class="dropdown-item">
+          <label><input type="checkbox" class="gen-filter" value="9" checked> Geração 9</label>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Todos -->
+  <!-- Pokédex -->
   <section class="mb-12">
     <h2 class="text-5xl font-bold text-indigo-300 mb-4 text-center pokemon-title">Pokédex</h2>
     <div class="px-4 md:px-10">
@@ -136,114 +252,154 @@
     </div>
   </section>
 
-<script>
-  const pokemons = [];
-  const todosContainer = document.getElementById('todosContainer');
-  const timeContainer = document.getElementById('timeContainer');
-  const qtdSpan = document.getElementById('qtdExibida');
-  const rangeInput = document.getElementById('quantidadeRange');
-  const searchInput = document.getElementById('searchInput');
-
-  rangeInput.addEventListener('input', () => {
-    qtdSpan.textContent = rangeInput.value;
-  });
-
-  const geracoes = {
-    1: [1, 151], 2: [152, 251], 3: [252, 386], 4: [387, 493],
-    5: [494, 649], 6: [650, 721], 7: [722, 809], 8: [810, 898],
-  };
-
-  function descobrirGeracao(id) {
-    for (const gen in geracoes) {
-      const [inicio, fim] = geracoes[gen];
-      if (id >= inicio && id <= fim) return `Geração ${gen}`;
+  <script>
+    const pokemons = [];
+    const todosContainer = document.getElementById('todosContainer');
+    const timeContainer = document.getElementById('timeContainer');
+    const qtdSpan = document.getElementById('qtdExibida');
+    const rangeInput = document.getElementById('quantidadeRange');
+    const searchInput = document.getElementById('searchInput');
+    const genDropdown = document.getElementById('genDropdown');
+  
+    rangeInput.addEventListener('input', () => {
+      qtdSpan.textContent = rangeInput.value;
+    });
+  
+    const geracoes = {
+      1: [1, 151], 2: [152, 251], 3: [252, 386], 4: [387, 493],
+      5: [494, 649], 6: [650, 721], 7: [722, 809], 8: [810, 898], 9: [899, 1010]
+    };
+  
+    function descobrirGeracao(id) {
+      for (const gen in geracoes) {
+        const [inicio, fim] = geracoes[gen];
+        if (id >= inicio && id <= fim) return `Geração ${gen}`;
+      }
+      return 'Desconhecida';
     }
-    return 'Desconhecida';
-  }
-
-  async function carregarPokemons() {
-    for (let gen = 1; gen <= 8; gen++) {
-      const [inicio, fim] = geracoes[gen];
-      for (let id = inicio; id <= fim; id++) {
-        try {
-          const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-          const data = await res.json();
-          const pokemon = {
-            id: data.id,
-            name: data.name[0].toUpperCase() + data.name.slice(1),
-            image: data.sprites.front_default,
-            abilities: data.abilities.map(ab => ab.ability.name.replace('-', ' ')),
-            generation: descobrirGeracao(data.id),
-          };
-          pokemons.push(pokemon);
-          renderPokemon(pokemon);
-        } catch {}
+  
+    async function carregarPokemons() {
+      for (let gen = 1; gen <= 9; gen++) {
+        const [inicio, fim] = geracoes[gen];
+        for (let id = inicio; id <= fim; id++) {
+          try {
+            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+            const data = await res.json();
+            const pokemon = {
+              id: data.id,
+              name: data.name[0].toUpperCase() + data.name.slice(1),
+              image: data.sprites.front_default,
+              abilities: data.abilities.map(ab => ab.ability.name.replace('-', ' ')),
+              generation: descobrirGeracao(data.id),
+              genNumber: gen.toString()
+            };
+            pokemons.push(pokemon);
+            renderPokemon(pokemon);
+          } catch {}
+        }
       }
     }
-  }
-
-  function renderPokemon(pokemon) {
-    const card = document.createElement('div');
-    card.className = "bg-gray-800/90 border border-indigo-300 rounded-xl shadow-md p-4 w-60 text-center";
-    card.innerHTML = `
-      <p class="text-sm text-indigo-400 font-medium mb-2">${pokemon.generation}</p>
-      <img src="${pokemon.image}" alt="${pokemon.name}" class="mx-auto w-20 h-20 mb-2 drop-shadow">
-      <h3 class="text-md font-semibold text-indigo-200">#${pokemon.id} - ${pokemon.name}</h3>
-      <div class="mt-2">
-        ${pokemon.abilities.map(hab => `
-          <p class="text-sm text-gray-300 mb-1">${hab}</p>
-          <div class="w-full bg-gray-600 rounded-full h-2 mb-2">
-            <div class="bg-indigo-400 h-2 rounded-full" style="width:${Math.floor(Math.random() * 80) + 20}%"></div>
-          </div>
-        `).join('')}
-      </div>
-    `;
-    todosContainer.appendChild(card);
-  }
-
-  function gerarTime() {
-    const selecionadas = Array.from(document.querySelectorAll('.geracao:checked')).map(cb => parseInt(cb.value));
-    const qtd = parseInt(rangeInput.value);
-
-    const filtrados = pokemons.filter(p => {
-      return selecionadas.some(gen => {
-        const [inicio, fim] = geracoes[gen];
-        return p.id >= inicio && p.id <= fim;
-      });
-    });
-
-    const time = [...filtrados].sort(() => 0.5 - Math.random()).slice(0, qtd);
-
-    timeContainer.innerHTML = '';
-    time.forEach(pokemon => {
+  
+    function renderPokemon(pokemon) {
       const card = document.createElement('div');
-      card.className = "bg-gray-800/90 border border-purple-500 rounded-xl shadow-md p-4 w-60 text-center";
+      card.className = "bg-gray-800/90 border border-indigo-300 rounded-xl shadow-md p-4 w-60 text-center";
       card.innerHTML = `
-        <p class="text-sm text-purple-500 font-medium mb-2">${pokemon.generation}</p>
-        <img src="${pokemon.image}" alt="${pokemon.name}" class="mx-auto w-20 h-20 mb-2">
-        <h3 class="text-md font-bold text-purple-500">#${pokemon.id} - ${pokemon.name}</h3>
-        <div class="mt-3 text-left">
-          ${pokemon.abilities.map(h => `
-            <p class="text-sm text-gray-300 mb-1">${h}</p>
-            <div class="w-full bg-yellow-100 rounded-full h-2 mb-2">
-              <div class="bg-purple-400 h-2 rounded-full" style="width:${Math.floor(Math.random() * 80) + 20}%"></div>
+        <p class="text-sm text-indigo-400 font-medium mb-2">${pokemon.generation}</p>
+        <img src="${pokemon.image}" alt="${pokemon.name}" class="mx-auto w-20 h-20 mb-2 drop-shadow">
+        <h3 class="text-md font-semibold text-indigo-200">#${pokemon.id} - ${pokemon.name}</h3>
+        <div class="mt-2">
+          ${pokemon.abilities.map(hab => `
+            <p class="text-sm text-gray-300 mb-1">${hab}</p>
+            <div class="w-full bg-gray-600 rounded-full h-2 mb-2">
+              <div class="bg-indigo-400 h-2 rounded-full" style="width:${Math.floor(Math.random() * 80) + 20}%"></div>
             </div>
           `).join('')}
         </div>
       `;
-      timeContainer.appendChild(card);
+      todosContainer.appendChild(card);
+    }
+  
+    function gerarTime() {
+      const selecionadas = Array.from(document.querySelectorAll('.geracao:checked')).map(cb => Number(cb.value));
+      const [start, end] = selecionadas.reduce(([min, max], gen) => {
+        const [inicio, fim] = geracoes[gen];
+        return [Math.min(min, inicio), Math.max(max, fim)];
+      }, [Number.MAX_VALUE, 0]);
+  
+      const candidatos = pokemons.filter(p => p.id >= start && p.id <= end);
+      const quantidade = Number(rangeInput.value);
+      const time = [];
+  
+      while (time.length < quantidade && candidatos.length > 0) {
+        const index = Math.floor(Math.random() * candidatos.length);
+        time.push(candidatos.splice(index, 1)[0]);
+      }
+  
+      timeContainer.innerHTML = '';
+      time.forEach(pokemon => {
+        const card = document.createElement('div');
+        card.className = "bg-gray-900 border border-purple-400 rounded-xl shadow-lg p-4 w-60 text-center";
+        card.innerHTML = `
+          <p class="text-sm text-purple-300 font-medium mb-2">${pokemon.generation}</p>
+          <img src="${pokemon.image}" alt="${pokemon.name}" class="mx-auto w-20 h-20 mb-2 drop-shadow">
+          <h3 class="text-md font-semibold text-purple-200">#${pokemon.id} - ${pokemon.name}</h3>
+          <div class="mt-2">
+            ${pokemon.abilities.map(hab => `
+              <p class="text-sm text-gray-300 mb-1">${hab}</p>
+              <div class="w-full bg-gray-600 rounded-full h-2 mb-2">
+                <div class="bg-purple-400 h-2 rounded-full" style="width:${Math.floor(Math.random() * 80) + 20}%"></div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+        timeContainer.appendChild(card);
+      });
+    }
+  
+    function filtrarPokemon() {
+      const termo = searchInput.value.toLowerCase();
+      const selecionadas = Array.from(document.querySelectorAll('.gen-filter:checked')).map(opt => opt.value);
+      
+      todosContainer.innerHTML = '';
+      
+      pokemons
+        .filter(p => {
+          const nomeMatch = p.name.toLowerCase().includes(termo);
+          const genMatch = selecionadas.includes(p.genNumber);
+          return nomeMatch && genMatch;
+        })
+        .forEach(p => renderPokemon(p));
+    }
+    
+    function toggleDropdown() {
+      genDropdown.classList.toggle('show');
+    }
+    
+    // Fechar o dropdown quando clicar fora dele
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropdown-btn')) {
+        const dropdowns = document.getElementsByClassName("dropdown-content");
+        for (let i = 0; i < dropdowns.length; i++) {
+          const openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+    
+    // Atualizar filtro quando mudar qualquer checkbox
+    document.querySelectorAll('.gen-filter').forEach(checkbox => {
+      checkbox.addEventListener('change', filtrarPokemon);
     });
-  }
 
-  function filtrarPokemon() {
-    const searchTerm = searchInput.value.toLowerCase();
-    const filtrados = pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchTerm));
-    todosContainer.innerHTML = '';
-    filtrados.forEach(renderPokemon);
-  }
-
-  carregarPokemons();
-</script>
-
+    document.querySelectorAll('.gen-filter, .gen-filter + label').forEach(element => {
+      element.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    carregarPokemons();
+  </script>
+  
 </body>
 </html>
