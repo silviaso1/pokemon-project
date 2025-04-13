@@ -62,7 +62,6 @@
       font-family: 'VT323', cursive;
     }
     
-    /* Estilo para o dropdown de gerações */
     .dropdown {
       position: relative;
       display: inline-block;
@@ -148,63 +147,60 @@
 </head>
 <body class="min-h-screen">
 
-  <!-- Navbar -->
+
   <nav class="bg-gray-900/90 shadow-md sticky top-0 z-50 backdrop-blur">
     <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
       <h1 class="text-4xl sm:text-3xl md:text-6xl text-purple-400 drop-shadow-sm pokemon-title">SquadMaker</h1>
     </div>
   </nav>
 
-  <!-- Header -->
+
   <header class="text-center py-12 px-4">
     <h2 class="text-4xl md:text-5xl font-extrabold text-indigo-300 mb-4 drop-shadow-sm pokemon-title">Monte seu Time de Pokémon</h2>
     <p class="text-lg text-gray-300 max-w-xl mx-auto">Escolha as gerações, defina a quantidade de integrantes e visualize seus Pokémon com habilidades incríveis.</p>
   </header>
 
-  <!-- Container com Filtros e Time Gerado -->
-  <section class="flex flex-col xl:flex-row xl:items-start justify-center px-4 mb-16 gap-10">
-    <!-- Filtros -->
-    <div class="xl:sticky xl:top-20 max-w-md bg-white/10 rounded-2xl shadow-lg p-8 md:p-10 border border-indigo-100 fade-in w-full mx-auto xl:ml-2 flex-shrink-0 h-fit">
-      <h2 class="text-4xl font-extrabold text-indigo-300 mb-8 text-center pokemon-title">Filtros</h2>
-      <!-- Gerações -->
-      <div class="mb-8">
-        <label class="block font-semibold mb-3 text-gray-300 text-lg">Gerações:</label>
-        <div class="flex flex-wrap gap-3 justify-center">
-          <label><input type="checkbox" class="geracao" value="1" checked> Gen 1</label>
-          <label><input type="checkbox" class="geracao" value="2" checked> Gen 2</label>
-          <label><input type="checkbox" class="geracao" value="3" checked> Gen 3</label>
-          <label><input type="checkbox" class="geracao" value="4" checked> Gen 4</label>
-          <label><input type="checkbox" class="geracao" value="5" checked> Gen 5</label>
-          <label><input type="checkbox" class="geracao" value="6" checked> Gen 6</label>
-          <label><input type="checkbox" class="geracao" value="7" checked> Gen 7</label>
-          <label><input type="checkbox" class="geracao" value="8" checked> Gen 8</label>
-          <label><input type="checkbox" class="geracao" value="9" checked> Gen 9</label>
-        </div>
-      </div>
-
-      <!-- Quantidade -->
-      <div class="mb-6">
-        <label class="block font-semibold mb-3 text-gray-300 text-lg">Quantidade:</label>
-        <input type="range" id="quantidadeRange" min="1" max="6" value="3" class="w-full accent-indigo-600">
-        <p class="text-center mt-2 text-indigo-300 font-semibold">Quantidade: <span id="qtdExibida">3</span></p>
-      </div>
-
-      <!-- Botão -->
-      <div class="flex justify-center mt-6">
-        <button onclick="gerarTime()" class="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-3 px-8 rounded-full text-lg shadow-lg transition duration-300">
-          🎲 Gerar Time Aleatório
-        </button>
+<section class="flex flex-col xl:flex-row justify-center items-center xl:items-start px-4 mb-16 gap-10 max-w-7xl mx-auto">
+  <div class="w-full max-w-md xl:sticky xl:top-20 bg-white/10 rounded-2xl shadow-lg p-8 md:p-10 border border-indigo-100 fade-in h-fit">
+    <h2 class="text-4xl font-extrabold text-indigo-300 mb-8 text-center pokemon-title">Filtros</h2>
+    
+    <div class="mb-8">
+      <label class="block font-semibold mb-3 text-gray-300 text-lg">Gerações:</label>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <label><input type="checkbox" class="geracao" value="1" checked> Gen 1</label>
+        <label><input type="checkbox" class="geracao" value="2" checked> Gen 2</label>
+        <label><input type="checkbox" class="geracao" value="3" checked> Gen 3</label>
+        <label><input type="checkbox" class="geracao" value="4" checked> Gen 4</label>
+        <label><input type="checkbox" class="geracao" value="5" checked> Gen 5</label>
+        <label><input type="checkbox" class="geracao" value="6" checked> Gen 6</label>
+        <label><input type="checkbox" class="geracao" value="7" checked> Gen 7</label>
+        <label><input type="checkbox" class="geracao" value="8" checked> Gen 8</label>
+        <label><input type="checkbox" class="geracao" value="9" checked> Gen 9</label>
       </div>
     </div>
 
-    <!-- Time Gerado -->
-    <section id="time" class="text-center px-4 mb-10 w-full fade-in xl:max-w-4xl xl:mx-auto">
-      <h2 class="text-4xl font-bold text-indigo-300 mb-8 pokemon-title">Seu Time</h2>
-      <div id="timeContainer" class="flex flex-wrap justify-center gap-6"></div>
-    </section>
+ 
+    <div class="mb-6">
+      <label class="block font-semibold mb-3 text-gray-300 text-lg">Quantidade:</label>
+      <input type="range" id="quantidadeRange" min="1" max="6" value="3" class="w-full accent-indigo-600">
+      <p class="text-center mt-2 text-indigo-300 font-semibold">Quantidade: <span id="qtdExibida">3</span></p>
+    </div>
+
+ 
+    <div class="flex justify-center mt-6">
+      <button onclick="gerarTime()" class="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-3 px-8 rounded-full text-lg shadow-lg transition duration-300">
+        🎲 Gerar Time Aleatório
+      </button>
+    </div>
+  </div>
+
+  <section id="time" class="text-center w-full fade-in xl:max-w-4xl">
+    <h2 class="text-4xl font-bold text-indigo-300 mb-8 pokemon-title">Seu Time</h2>
+    <div id="timeContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+    </div>
+  </section>
 </section>
 
-  <!-- Barra de Pesquisa + Filtro Gens -->
   <div class="search-filters flex flex-col lg:flex-row lg:items-center md:items-center md:flex-row justify-center px-4 mb-16 gap-6">
     <input type="text" id="searchInput" class="search-bar" placeholder="Buscar Pokémon..." oninput="filtrarPokemon()">
 
@@ -244,7 +240,6 @@
     </div>
   </div>
 
-  <!-- Pokédex -->
   <section class="mb-12">
     <h2 class="text-5xl font-bold text-indigo-300 mb-4 text-center pokemon-title">Pokédex</h2>
     <div class="px-4 md:px-10">
@@ -252,154 +247,7 @@
     </div>
   </section>
 
-  <script>
-    const pokemons = [];
-    const todosContainer = document.getElementById('todosContainer');
-    const timeContainer = document.getElementById('timeContainer');
-    const qtdSpan = document.getElementById('qtdExibida');
-    const rangeInput = document.getElementById('quantidadeRange');
-    const searchInput = document.getElementById('searchInput');
-    const genDropdown = document.getElementById('genDropdown');
-  
-    rangeInput.addEventListener('input', () => {
-      qtdSpan.textContent = rangeInput.value;
-    });
-  
-    const geracoes = {
-      1: [1, 151], 2: [152, 251], 3: [252, 386], 4: [387, 493],
-      5: [494, 649], 6: [650, 721], 7: [722, 809], 8: [810, 898], 9: [899, 1010]
-    };
-  
-    function descobrirGeracao(id) {
-      for (const gen in geracoes) {
-        const [inicio, fim] = geracoes[gen];
-        if (id >= inicio && id <= fim) return `Geração ${gen}`;
-      }
-      return 'Desconhecida';
-    }
-  
-    async function carregarPokemons() {
-      for (let gen = 1; gen <= 9; gen++) {
-        const [inicio, fim] = geracoes[gen];
-        for (let id = inicio; id <= fim; id++) {
-          try {
-            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-            const data = await res.json();
-            const pokemon = {
-              id: data.id,
-              name: data.name[0].toUpperCase() + data.name.slice(1),
-              image: data.sprites.front_default,
-              abilities: data.abilities.map(ab => ab.ability.name.replace('-', ' ')),
-              generation: descobrirGeracao(data.id),
-              genNumber: gen.toString()
-            };
-            pokemons.push(pokemon);
-            renderPokemon(pokemon);
-          } catch {}
-        }
-      }
-    }
-  
-    function renderPokemon(pokemon) {
-      const card = document.createElement('div');
-      card.className = "bg-gray-800/90 border border-indigo-300 rounded-xl shadow-md p-4 w-60 text-center";
-      card.innerHTML = `
-        <p class="text-sm text-indigo-400 font-medium mb-2">${pokemon.generation}</p>
-        <img src="${pokemon.image}" alt="${pokemon.name}" class="mx-auto w-20 h-20 mb-2 drop-shadow">
-        <h3 class="text-md font-semibold text-indigo-200">#${pokemon.id} - ${pokemon.name}</h3>
-        <div class="mt-2">
-          ${pokemon.abilities.map(hab => `
-            <p class="text-sm text-gray-300 mb-1">${hab}</p>
-            <div class="w-full bg-gray-600 rounded-full h-2 mb-2">
-              <div class="bg-indigo-400 h-2 rounded-full" style="width:${Math.floor(Math.random() * 80) + 20}%"></div>
-            </div>
-          `).join('')}
-        </div>
-      `;
-      todosContainer.appendChild(card);
-    }
-  
-    function gerarTime() {
-      const selecionadas = Array.from(document.querySelectorAll('.geracao:checked')).map(cb => Number(cb.value));
-      const [start, end] = selecionadas.reduce(([min, max], gen) => {
-        const [inicio, fim] = geracoes[gen];
-        return [Math.min(min, inicio), Math.max(max, fim)];
-      }, [Number.MAX_VALUE, 0]);
-  
-      const candidatos = pokemons.filter(p => p.id >= start && p.id <= end);
-      const quantidade = Number(rangeInput.value);
-      const time = [];
-  
-      while (time.length < quantidade && candidatos.length > 0) {
-        const index = Math.floor(Math.random() * candidatos.length);
-        time.push(candidatos.splice(index, 1)[0]);
-      }
-  
-      timeContainer.innerHTML = '';
-      time.forEach(pokemon => {
-        const card = document.createElement('div');
-        card.className = "bg-gray-900 border border-purple-400 rounded-xl shadow-lg p-4 w-60 text-center";
-        card.innerHTML = `
-          <p class="text-sm text-purple-300 font-medium mb-2">${pokemon.generation}</p>
-          <img src="${pokemon.image}" alt="${pokemon.name}" class="mx-auto w-20 h-20 mb-2 drop-shadow">
-          <h3 class="text-md font-semibold text-purple-200">#${pokemon.id} - ${pokemon.name}</h3>
-          <div class="mt-2">
-            ${pokemon.abilities.map(hab => `
-              <p class="text-sm text-gray-300 mb-1">${hab}</p>
-              <div class="w-full bg-gray-600 rounded-full h-2 mb-2">
-                <div class="bg-purple-400 h-2 rounded-full" style="width:${Math.floor(Math.random() * 80) + 20}%"></div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-        timeContainer.appendChild(card);
-      });
-    }
-  
-    function filtrarPokemon() {
-      const termo = searchInput.value.toLowerCase();
-      const selecionadas = Array.from(document.querySelectorAll('.gen-filter:checked')).map(opt => opt.value);
-      
-      todosContainer.innerHTML = '';
-      
-      pokemons
-        .filter(p => {
-          const nomeMatch = p.name.toLowerCase().includes(termo);
-          const genMatch = selecionadas.includes(p.genNumber);
-          return nomeMatch && genMatch;
-        })
-        .forEach(p => renderPokemon(p));
-    }
-    
-    function toggleDropdown() {
-      genDropdown.classList.toggle('show');
-    }
-    
-    // Fechar o dropdown quando clicar fora dele
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropdown-btn')) {
-        const dropdowns = document.getElementsByClassName("dropdown-content");
-        for (let i = 0; i < dropdowns.length; i++) {
-          const openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
-    }
-    
-    // Atualizar filtro quando mudar qualquer checkbox
-    document.querySelectorAll('.gen-filter').forEach(checkbox => {
-      checkbox.addEventListener('change', filtrarPokemon);
-    });
-
-    document.querySelectorAll('.gen-filter, .gen-filter + label').forEach(element => {
-      element.addEventListener('click', function(e) {
-        e.stopPropagation();
-      });
-    });
-    carregarPokemons();
-  </script>
+  <script src="./src/script.js"></script>
   
 </body>
 </html>
